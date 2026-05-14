@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纖歲茶 | 開心吃快樂瘦</title>
+    <style>
+        /* 基礎設定 */
+        body {
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            margin: 0; padding: 0;
+            background-color: #FAFAFA; color: #333; line-height: 1.6;
+        }
+        h1, h2, h3 { margin: 0; }
+        .container {
+            max-width: 1000px; margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+        .text-center { text-align: center; }
+
+        /* 首屏 (Hero Section) */
+        .hero {
+            position: relative; height: 80vh; min-height: 500px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: white;
+            background-image: url('asset/1.JPG');
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.4); z-index: 1;
+        }
+        .hero-content { position: relative; z-index: 2; padding: 20px; }
+        .hero h1 { font-size: 4em; margin-bottom: 15px; letter-spacing: 4px; font-weight: bold; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .hero h2 { font-size: 1.8em; font-weight: normal; text-shadow: 1px 1px 8px rgba(0,0,0,0.5); }
+
+        /* ----- 新增：自動播放投影片 (Slideshow) ----- */
+        .slideshow-container {
+            position: relative;
+            max-width: 600px; /* 投影片寬度 */
+            margin: 0 auto 60px;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out; /* 切換動畫 */
+        }
+        .slides img {
+            width: 100%;
+            flex-shrink: 0;
+            height: auto;
+            display: block;
+        }
+        /* 左右箭頭 (選用) */
+        .prev, .next {
+            cursor: pointer; position: absolute; top: 50%; width: auto;
+            padding: 16px; margin-top: -22px; color: white; font-weight: bold;
+            font-size: 18px; transition: 0.6s ease; border-radius: 0 3px 3px 0;
+            user-select: none; background-color: rgba(0,0,0,0.3); z-index: 10;
+        }
+        .next { right: 0; border-radius: 3px 0 0 3px; }
+        .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
+
+        /* 痛點區 */
+        .section-title { font-size: 2.2em; color: #333; margin: 0 0 40px; text-align: center; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .card { background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; transition: transform 0.3s ease; }
+        .card:hover { transform: translateY(-5px); }
+        .card h3 { color: #4CAF50; font-size: 1.3em; margin-bottom: 15px; }
+
+        /* 價格方案與解鎖區 */
+        .pricing-section { background-color: #fff; padding: 60px 20px; margin-top: 60px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .unlock-box { background: #FFF3E0; padding: 25px; border-radius: 10px; display: inline-block; margin-bottom: 40px; border: 1px dashed #FF9800; }
+        .unlock-box input { padding: 12px; font-size: 1em; border: 1px solid #ccc; border-radius: 8px; margin-right: 10px; outline: none; width: 200px; }
+        .btn { background: #4CAF50; color: white; border: none; padding: 12px 25px; font-size: 1.1em; border-radius: 8px; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
+        
+        /* 隱藏/顯示狀態 */
+        .price-locked { font-size: 1.1em; color: #999; margin: 20px 0; font-weight: bold; }
+        .price-unlocked { display: none; font-size: 2.2em; color: #E91E63; font-weight: bold; margin: 20px 0; }
+        .buy-btn { display: none; width: 100%; box-sizing: border-box; margin-top: 15px; background: #00C300; }
+        .buy-btn:hover { background: #00A000; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.8em; }
+            .hero h2 { font-size: 1.3em; }
+            .section-title { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>纖歲茶</h1>
+            <h2>開心吃快樂瘦，找回輕盈體態</h2>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="slideshow-container">
+            <div class="slides" id="slideTrack">
+                <img src="asset/2.jpg" alt="展示 1">
+                <img src="asset/3.jpg" alt="展示 2">
+                <img src="asset/4.jpg" alt="展示 3">
+                <img src="asset/5.jpg" alt="展示 4">
+            </div>
+            <a class="prev" onclick="moveSlide(-1)">&#10094;</a>
+            <a class="next" onclick="moveSlide(1)">&#10095;</a>
+        </div>
+
+        <h2 class="section-title">這些煩惱，你中了幾個？</h2>
+        <div class="grid-3">
+            <div class="card">
+                <h3>🍽️ 外食頻繁代謝差</h3>
+                <p>三餐老是在外，蔬菜吃太少。不會分辨食物類型，常常管不住嘴，導致代謝漸漸卡關。</p>
+            </div>
+            <div class="card">
+                <h3>🚽 滿肚子氣排不順</h3>
+                <p>卡卡不順暢，甚至有便秘困擾。即使想認真控制飲食，也總是心有餘而力不足。</p>
+            </div>
+            <div class="card">
+                <h3>🛋️ 忙碌懶人不想動</h3>
+                <p>想要瘦身但覺得太麻煩。忙碌的上班族、產後媽媽，根本沒有時間和體力去運動。</p>
+            </div>
+        </div>
+
+        <div class="pricing-section text-center">
+            <h2 class="section-title">專屬私密賣場</h2>
+            <div class="unlock-box" id="unlockBox">
+                <p style="margin-top:0; color:#E65100; font-weight:bold;">🔒 請輸入專屬優惠碼以解鎖隱藏報價</p>
+                <input type="text" id="promoCode" placeholder="請輸入 6 碼優惠碼">
+                <button class="btn" onclick="checkPromoCode()">確認解鎖</button>
+                <p id="errorMsg" style="color:red; display:none; margin-bottom:0; font-size:0.9em;">優惠碼錯誤，請重新輸入！</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h3>🌱 體驗方案</h3>
+                    <p>適合初次嘗試，感受輕盈</p>
+                    <div class="price-locked">🔒 價格已隱藏</div>
+                    <div class="price-unlocked">NT$ 666</div>
+                    <button class="btn" disabled id="lockBtn1">請先解鎖</button>
+                    <a href="#" class="btn buy-btn" onclick="buyItem('我要體驗纖歲茶')">LINE 預填下單</a>
+                </div>
+
+                <div class="card" style="border: 2px solid #4CAF50; position: relative;">
+                    <div style="position:absolute; top:-15px; left:50%; transform:translateX(-50%); background:#4CAF50; color:#fff; padding:5px 15px; border-radius:20px; font-size:0.9em;">熱銷推薦</div>
+                    <h3>✨ 一個月調理</h3>
+                    <p>養成代謝好體質，看見改變</p>
+                    <div class="price-locked">🔒 價格已隱藏</div>
+                    <div class="price-unlocked">NT$ 3,980</div>
+                    <button class="btn" disabled id="lockBtn2">請先解鎖</button>
+                    <a href="#" class="btn buy-btn" onclick="buyItem('我要一個月纖歲茶方案')">LINE 預填下單</a>
+                </div>
+
+                <div class="card">
+                    <h3>👑 三個月進階</h3>
+                    <p>懶人無痛瘦身，完美蛻變</p>
+                    <div class="price-locked">🔒 價格已隱鎖</div>
+                    <div class="price-unlocked">NT$ 12,960</div>
+                    <button class="btn" disabled id="lockBtn3">請先解鎖</button>
+                    <a href="#" class="btn buy-btn" onclick="buyItem('我要三個月纖歲茶方案')">LINE 預填下單</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const LINE_ID = "@lax9630f"; 
+        const SECRET_CODE = "000358"; 
+
+        // --- 自動播放投影片邏輯 ---
+        let currentSlide = 0;
+        const slides = document.getElementById('slideTrack');
+        const totalSlides = slides.children.length;
+
+        function showSlide(index) {
+            if (index >= totalSlides) currentSlide = 0;
+            else if (index < 0) currentSlide = totalSlides - 1;
+            else currentSlide = index;
+            
+            // 使用 CSS Transform 位移來達成滑動效果
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function moveSlide(step) {
+            showSlide(currentSlide + step);
+            resetTimer(); // 手動點擊時重置計時器
+        }
+
+        let autoPlayTimer = setInterval(() => moveSlide(1), 3000); // 3秒換一張
+
+        function resetTimer() {
+            clearInterval(autoPlayTimer);
+            autoPlayTimer = setInterval(() => moveSlide(1), 3000);
+        }
+
+        // --- 優惠碼與下單邏輯 ---
+        function checkPromoCode() {
+            const inputCode = document.getElementById('promoCode').value;
+            const errorMsg = document.getElementById('errorMsg');
+            const unlockBox = document.getElementById('unlockBox');
+            
+            if (inputCode === SECRET_CODE) {
+                unlockBox.innerHTML = "<h3 style='color:#4CAF50; margin:0;'>🎉 解鎖成功！請選擇您的專屬方案</h3>";
+                errorMsg.style.display = 'none';
+                document.querySelectorAll('.price-locked').forEach(el => el.style.display = 'none');
+                document.getElementById('lockBtn1').style.display = 'none';
+                document.getElementById('lockBtn2').style.display = 'none';
+                document.getElementById('lockBtn3').style.display = 'none';
+                document.querySelectorAll('.price-unlocked').forEach(el => el.style.display = 'block');
+                document.querySelectorAll('.buy-btn').forEach(el => el.style.display = 'block');
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        function buyItem(message) {
+            const encodedMessage = encodeURIComponent(message);
+            const lineUrl = `https://line.me/R/oaMessage/${LINE_ID}/?${encodedMessage}`;
+            window.open(lineUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
