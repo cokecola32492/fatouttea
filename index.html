@@ -6,126 +6,94 @@
     <title>纖歲茶 | 開心吃快樂瘦</title>
     <style>
         /* 基礎設定 */
-        body {
-            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-            margin: 0; padding: 0;
-            background-color: #FAFAFA; color: #333; line-height: 1.6;
-        }
+        body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; margin: 0; padding: 0; background-color: #FAFAFA; color: #333; line-height: 1.6; }
         h1, h2, h3 { margin: 0; }
-        .container {
-            max-width: 1000px; margin: 0 auto;
-            padding: 40px 20px 60px;
-        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px 60px; }
         .text-center { text-align: center; }
 
-        /* ----- 新增：頂部導覽列 (Top Navigation) ----- */
-        .top-nav {
-            background-color: #fff;
-            padding: 15px 20px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky; /* 讓導覽列在往下滑時依然固定在最上方 */
-            top: 0;
-            z-index: 100;
-        }
-        .top-nav .brand {
-            font-size: 1.6em;
-            color: #2E7D32;
-            font-weight: bold;
-            margin-bottom: 8px;
-            letter-spacing: 2px;
-        }
-        .top-nav .nav-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px; /* 連結之間的間距 */
-        }
-        .top-nav .nav-links a {
-            color: #666;
-            text-decoration: none;
-            font-size: 1.05em;
-            transition: color 0.3s;
-            padding-bottom: 5px;
-        }
-        .top-nav .nav-links a:hover {
-            color: #4CAF50;
-            border-bottom: 2px solid #4CAF50; /* 滑鼠移過去會有底線特效 */
-        }
+        /* 頂部導覽列 (多頁面切換設定) */
+        .top-nav { background-color: #fff; padding: 15px 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        .top-nav .brand { font-size: 1.6em; color: #2E7D32; font-weight: bold; margin-bottom: 8px; letter-spacing: 2px; }
+        .top-nav .nav-links { display: flex; justify-content: center; gap: 30px; }
+        .top-nav .nav-links a { color: #666; text-decoration: none; font-size: 1.05em; transition: color 0.3s; padding-bottom: 5px; }
+        .top-nav .nav-links a:hover { color: #4CAF50; border-bottom: 2px solid #4CAF50; }
 
         /* 首屏 (Hero Section) */
-        .hero {
-            position: relative; height: 80vh; min-height: 500px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; color: white;
-            background-image: url('asset/1.webp');
-            background-size: cover; background-position: center; background-repeat: no-repeat;
-            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.4); z-index: 1;
-        }
+        .hero { position: relative; height: 80vh; min-height: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; background-image: url('asset/1.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); z-index: 1; }
         .hero-content { position: relative; z-index: 2; padding: 20px; }
         .hero h1 { font-size: 4em; margin-bottom: 15px; letter-spacing: 4px; font-weight: bold; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
         .hero h2 { font-size: 1.8em; font-weight: normal; text-shadow: 1px 1px 8px rgba(0,0,0,0.5); }
 
-        /* 自動播放投影片 (Slideshow) */
-        .slideshow-container {
-            position: relative; max-width: 600px; margin: 0 auto 60px;
-            overflow: hidden; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
+        /* 自動播放投影片 */
+        .slideshow-container { position: relative; max-width: 600px; margin: 0 auto 60px; overflow: hidden; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .slides { display: flex; transition: transform 0.5s ease-in-out; }
         .slides img { width: 100%; flex-shrink: 0; height: auto; display: block; }
-        .prev, .next {
-            cursor: pointer; position: absolute; top: 50%; width: auto;
-            padding: 16px; margin-top: -22px; color: white; font-weight: bold;
-            font-size: 18px; transition: 0.6s ease; border-radius: 0 3px 3px 0;
-            user-select: none; background-color: rgba(0,0,0,0.3); z-index: 10;
-        }
+        .prev, .next { cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px; margin-top: -22px; color: white; font-weight: bold; font-size: 18px; transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none; background-color: rgba(0,0,0,0.3); z-index: 10; }
         .next { right: 0; border-radius: 3px 0 0 3px; }
         .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
 
-        /* 痛點與共用卡片區 */
+        /* 痛點卡片區 */
         .section-title { font-size: 2.2em; color: #333; margin: 0 0 40px; text-align: center; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .card { background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; transition: transform 0.3s ease; }
         .card:hover { transform: translateY(-5px); }
         .card h3 { color: #4CAF50; font-size: 1.3em; margin-bottom: 15px; }
 
-        /* 價格方案與解鎖區 */
+        /* 解鎖設定 */
         .pricing-section { background-color: #fff; padding: 60px 20px; margin-top: 60px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
         .unlock-box { background: #FFF3E0; padding: 25px; border-radius: 10px; display: inline-block; margin-bottom: 40px; border: 1px dashed #FF9800; }
         .unlock-box input { padding: 12px; font-size: 1em; border: 1px solid #ccc; border-radius: 8px; margin-right: 10px; outline: none; width: 200px; }
-        .btn { background: #4CAF50; color: white; border: none; padding: 12px 25px; font-size: 1.1em; border-radius: 8px; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
         
-        .price-locked { font-size: 1.1em; color: #999; margin: 20px 0; font-weight: bold; }
-        .price-unlocked { display: none; font-size: 2.2em; color: #E91E63; font-weight: bold; margin: 20px 0; }
+        /* 共用按鈕 */
+        .btn { background: #4CAF50; color: white; border: none; padding: 12px 25px; font-size: 1.1em; border-radius: 8px; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
         .buy-btn { display: none; width: 100%; box-sizing: border-box; margin-top: 15px; background: #00C300; }
         .buy-btn:hover { background: #00A000; }
 
-        /* 滾動平滑設定 */
-        html { scroll-behavior: smooth; }
+        /* 強制一列三格商品排版 */
+        .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .product-card { background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; position: relative; }
+        .product-card img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
+        .product-card h3 { color: #4CAF50; font-size: 1.2em; margin-bottom: 5px; }
+        .product-card p { font-size: 0.9em; color: #666; margin-bottom: 15px; }
+        
+        /* 價格水平排列樣式 */
+        .price-locked { font-size: 1.1em; color: #999; margin: 20px 0; font-weight: bold; }
+        .price-unlocked { display: none; justify-content: center; align-items: baseline; gap: 8px; margin: 15px 0; flex-wrap: wrap; }
+        .original-price { font-size: 1em; color: #999; text-decoration: line-through; }
+        .discount-price { font-size: 1.8em; color: #E91E63; font-weight: bold; }
 
+        /* 手機版極致壓縮 */
         @media (max-width: 600px) {
             .hero h1 { font-size: 2.8em; }
             .hero h2 { font-size: 1.3em; }
             .section-title { font-size: 1.8em; }
+            .product-grid { gap: 6px; } 
+            .product-card { padding: 8px 5px; border-radius: 10px; } 
+            .product-card img { margin-bottom: 8px; border-radius: 6px; }
+            .product-card h3 { font-size: 0.85em; margin-bottom: 4px; } 
+            .product-card p { font-size: 0.7em; margin-bottom: 8px; line-height: 1.2; } 
+            .price-unlocked { gap: 4px; margin: 8px 0; }
+            .original-price { font-size: 0.7em; }
+            .discount-price { font-size: 1.1em; }
+            .price-locked { font-size: 0.8em; margin: 10px 0; }
+            .btn { padding: 8px 4px; font-size: 0.8em; border-radius: 6px; }
         }
     </style>
 </head>
 <body>
 
     <nav class="top-nav">
-        <div class="brand">纖歲茶</div>
+        <div class="brand">fatouttea</div>
         <div class="nav-links">
-            <a href="#kele-favorites">可樂愛吃愛用</a>
-            </div>
+            <a href="index.html">回到主選單</a>
+            <a href="recommend.html">可樂私心推薦</a>
+        </div>
     </nav>
 
     <header class="hero">
         <div class="hero-content">
-            <h1>纖歲茶</h1>
+            <h1>可樂陪你</h1>
             <h2>開心吃快樂瘦，找回輕盈體態</h2>
         </div>
     </header>
@@ -159,24 +127,6 @@
             </div>
         </div>
 
-        <div id="kele-favorites" style="margin-top: 80px;">
-            <h2 class="section-title">✨ 可樂愛吃愛用推薦</h2>
-            <div class="grid-3">
-                <div class="card">
-                    <h3>🍲 減脂刮油湯</h3>
-                    <p>搭配纖歲茶的完美晚餐選擇！蔬菜滿滿低卡飽足，隔天順暢超有感。</p>
-                </div>
-                <div class="card">
-                    <h3>🍌 燕麥香蕉煎餅</h3>
-                    <p>無麵粉的健康甜點，解嘴饞的首選，開心吃完全沒負擔。</p>
-                </div>
-                <div class="card">
-                    <h3>🍮 豆腐低卡點心</h3>
-                    <p>高蛋白又滑順，適合運動後或下午茶的秘密武器。</p>
-                </div>
-            </div>
-        </div>
-
         <div class="pricing-section text-center">
             <h2 class="section-title">專屬私密賣場</h2>
             <div class="unlock-box" id="unlockBox">
@@ -186,31 +136,43 @@
                 <p id="errorMsg" style="color:red; display:none; margin-bottom:0; font-size:0.9em;">優惠碼錯誤，請重新輸入！</p>
             </div>
 
-            <div class="grid-3">
-                <div class="card">
-                    <h3>🌱 體驗方案</h3>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="asset/1.webp" alt="纖歲茶">
+                    <h3>體驗方案</h3>
                     <p>適合初次嘗試，感受輕盈</p>
-                    <div class="price-locked">🔒 價格已隱藏</div>
-                    <div class="price-unlocked">NT$ 666</div>
+                    <div class="price-locked">🔒 已隱藏</div>
+                    <div class="price-unlocked">
+                        <span class="original-price">原價$990</span>
+                        <span class="discount-price">$666</span>
+                    </div>
                     <button class="btn" disabled id="lockBtn1">請先解鎖</button>
                     <a href="javascript:void(0)" class="btn buy-btn" onclick="buyItem('我要體驗纖歲茶\n金額:666\n提供我宅配資料\n姓名：\n電話：\n地址：\n\n（匯款後請提供我末5碼）\n帳號：067540170394\n銀行：中國信託\n代號：822')">LINE 預填下單</a>
                 </div>
 
-                <div class="card" style="border: 2px solid #4CAF50; position: relative;">
-                    <div style="position:absolute; top:-15px; left:50%; transform:translateX(-50%); background:#4CAF50; color:#fff; padding:5px 15px; border-radius:20px; font-size:0.9em;">熱銷推薦</div>
-                    <h3>✨ 一個月調理</h3>
-                    <p>養成代謝好體質，看見改變</p>
-                    <div class="price-locked">🔒 價格已隱藏</div>
-                    <div class="price-unlocked">NT$ 3,980</div>
+                <div class="product-card" style="border: 2px solid #4CAF50;">
+                    <div style="position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:#4CAF50; color:#fff; padding:2px 10px; border-radius:15px; font-size:0.8em; white-space:nowrap;">熱銷推薦</div>
+                    <img src="asset/1.webp" alt="纖歲茶">
+                    <h3>一個月調理</h3>
+                    <p>養成好體質，看見改變</p>
+                    <div class="price-locked">🔒 已隱藏</div>
+                    <div class="price-unlocked">
+                        <span class="original-price">原價$5980</span>
+                        <span class="discount-price">$3980</span>
+                    </div>
                     <button class="btn" disabled id="lockBtn2">請先解鎖</button>
                     <a href="javascript:void(0)" class="btn buy-btn" onclick="buyItem('我要一個月纖歲茶方案\n金額:3980\n提供我宅配資料\n姓名：\n電話：\n地址：\n\n（匯款後請提供我末5碼）\n帳號：067540170394\n銀行：中國信託\n代號：822')">LINE 預填下單</a>
                 </div>
 
-                <div class="card">
-                    <h3>👑 三個月進階</h3>
+                <div class="product-card">
+                    <img src="asset/1.webp" alt="纖歲茶">
+                    <h3>三個月進階</h3>
                     <p>懶人無痛瘦身，完美蛻變</p>
-                    <div class="price-locked">🔒 價格已隱鎖</div>
-                    <div class="price-unlocked">NT$ 12,960</div>
+                    <div class="price-locked">🔒 已隱鎖</div>
+                    <div class="price-unlocked">
+                        <span class="original-price">原價$18960</span>
+                        <span class="discount-price">$12960</span>
+                    </div>
                     <button class="btn" disabled id="lockBtn3">請先解鎖</button>
                     <a href="javascript:void(0)" class="btn buy-btn" onclick="buyItem('我要三個月纖歲茶方案\n金額:12960\n提供我宅配資料\n姓名：\n電話：\n地址：\n\n（匯款後請提供我末5碼）\n帳號：067540170394\n銀行：中國信託\n代號：822')">LINE 預填下單</a>
                 </div>
@@ -222,7 +184,6 @@
         const LINE_ID = "@lax9630f"; 
         const SECRET_CODE = "000358"; 
 
-        // 自動播放投影片邏輯
         let currentSlide = 0;
         const slides = document.getElementById('slideTrack');
         const totalSlides = slides.children.length;
@@ -246,7 +207,6 @@
             autoPlayTimer = setInterval(() => moveSlide(1), 3000);
         }
 
-        // 優惠碼與下單邏輯
         function checkPromoCode() {
             const inputCode = document.getElementById('promoCode').value;
             const errorMsg = document.getElementById('errorMsg');
@@ -255,11 +215,13 @@
             if (inputCode === SECRET_CODE) {
                 unlockBox.innerHTML = "<h3 style='color:#4CAF50; margin:0;'>🎉 解鎖成功！請選擇您的專屬方案</h3>";
                 errorMsg.style.display = 'none';
+                
                 document.querySelectorAll('.price-locked').forEach(el => el.style.display = 'none');
                 document.getElementById('lockBtn1').style.display = 'none';
                 document.getElementById('lockBtn2').style.display = 'none';
                 document.getElementById('lockBtn3').style.display = 'none';
-                document.querySelectorAll('.price-unlocked').forEach(el => el.style.display = 'block');
+                
+                document.querySelectorAll('.price-unlocked').forEach(el => el.style.display = 'flex');
                 document.querySelectorAll('.buy-btn').forEach(el => el.style.display = 'block');
             } else {
                 errorMsg.style.display = 'block';
