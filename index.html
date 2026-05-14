@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>纖歲茶 | 開心吃快樂瘦</title>
+    <title>FATOUT | 纖歲茶</title>
     <style>
         /* 基礎設定 */
         body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; margin: 0; padding: 0; background-color: #FAFAFA; color: #333; line-height: 1.6; }
@@ -13,24 +13,27 @@
 
         /* 頂部導覽列 */
         .top-nav { background-color: #fff; padding: 15px 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        
+        /* 品牌名稱樣式 */
         .top-nav .brand { font-size: 1.6em; color: #2E7D32; font-weight: bold; margin-bottom: 8px; letter-spacing: 2px; }
+        
         .top-nav .nav-links { display: flex; justify-content: center; gap: 30px; }
         .top-nav .nav-links a { color: #666; text-decoration: none; font-size: 1.05em; transition: color 0.3s; padding-bottom: 5px; }
         .top-nav .nav-links a:hover { color: #4CAF50; border-bottom: 2px solid #4CAF50; }
 
-        /* 首屏 (Hero Section) - 電腦版維持 cover 填滿 */
-        .hero { 
-            position: relative; height: 80vh; min-height: 500px; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            text-align: center; color: white; 
-            background-image: url('asset/1.webp'); 
-            background-size: cover; background-position: center; background-repeat: no-repeat; 
-            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; overflow: hidden; 
+        /* 首屏 (Hero Section) - 移除濛版與背景設定，改為乾淨的實體圖片與下方文字 */
+        .hero { text-align: center; background-color: #FAFAFA; padding-bottom: 20px; }
+        .hero-img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            border-bottom-left-radius: 30px; 
+            border-bottom-right-radius: 30px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
         }
-        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); z-index: 1; }
-        .hero-content { position: relative; z-index: 2; padding: 20px; }
-        .hero h1 { font-size: 4em; margin-bottom: 15px; letter-spacing: 4px; font-weight: bold; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
-        .hero h2 { font-size: 1.8em; font-weight: normal; text-shadow: 1px 1px 8px rgba(0,0,0,0.5); }
+        .hero-content { padding: 40px 20px 10px; }
+        .hero h1 { font-size: 3.5em; color: #2E7D32; margin-bottom: 15px; letter-spacing: 4px; font-weight: bold; }
+        .hero h2 { font-size: 1.6em; color: #555; font-weight: normal; }
 
         /* 自動播放投影片 */
         .slideshow-container { position: relative; max-width: 600px; margin: 0 auto 60px; overflow: hidden; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
@@ -70,37 +73,22 @@
         .original-price { font-size: 1em; color: #999; text-decoration: line-through; }
         .discount-price { font-size: 1.8em; color: #E91E63; font-weight: bold; }
 
-        /* ----- 手機版極致壓縮與首圖滿版調整 ----- */
+        /* 手機版極致壓縮 */
         @media (max-width: 600px) {
-            /* 針對手機版首屏圖片不被裁切的設定 */
-            .hero {
-                height: auto; /* 取消固定高度 */
-                min-height: 400px; /* 稍微縮小最小高度 */
-                background-size: contain; /* 讓圖片完整顯示不裁切 */
-                background-position: top center; /* 讓圖片靠上方對齊 */
-                
-                /* 👇 如果圖片縮小後，文字疊在人臉上，可以把 60% 調大（如 80%）把文字往下推 */
-                padding-top: 60%; 
-            }
-
-            .hero h1 { font-size: 2.8em; }
-            .hero h2 { font-size: 1.3em; }
+            /* 修正手機版的文字大小 */
+            .hero h1 { font-size: 2.5em; }
+            .hero h2 { font-size: 1.2em; }
             .section-title { font-size: 1.8em; }
             
-            /* 手機版商品區塊微調 */
             .product-grid { gap: 6px; } 
             .product-card { padding: 8px 5px; border-radius: 10px; } 
             .product-card img { margin-bottom: 8px; border-radius: 6px; }
             .product-card h3 { font-size: 0.85em; margin-bottom: 4px; } 
             .product-card p { font-size: 0.7em; margin-bottom: 8px; line-height: 1.2; } 
-            
-            /* 手機版價格縮小以確保塞入同一行 */
             .price-unlocked { gap: 4px; margin: 8px 0; }
             .original-price { font-size: 0.7em; }
             .discount-price { font-size: 1.1em; }
             .price-locked { font-size: 0.8em; margin: 10px 0; }
-            
-            /* 手機版按鈕縮小 */
             .btn { padding: 8px 4px; font-size: 0.8em; border-radius: 6px; }
         }
     </style>
@@ -108,7 +96,7 @@
 <body>
 
     <nav class="top-nav">
-        <div class="brand">纖歲茶</div>
+        <div class="brand">FATOUT</div>
         <div class="nav-links">
             <a href="index.html">回到主選單</a>
             <a href="recommend.html">可樂私心推薦</a>
@@ -116,6 +104,7 @@
     </nav>
 
     <header class="hero">
+        <img src="asset/1.webp" alt="FATOUT" class="hero-img">
         <div class="hero-content">
             <h1>纖歲茶</h1>
             <h2>開心吃快樂瘦，找回輕盈體態</h2>
